@@ -1,1 +1,696 @@
-{"metadata":{"kernelspec":{"language":"python","display_name":"Python 3","name":"python3"},"language_info":{"name":"python","version":"3.11.13","mimetype":"text/x-python","codemirror_mode":{"name":"ipython","version":3},"pygments_lexer":"ipython3","nbconvert_exporter":"python","file_extension":".py"},"kaggle":{"accelerator":"none","dataSources":[],"isInternetEnabled":false,"language":"python","sourceType":"notebook","isGpuEnabled":false}},"nbformat_minor":4,"nbformat":4,"cells":[{"cell_type":"code","source":"# This Python 3 environment comes with many helpful analytics libraries installed\n# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n# For example, here's several helpful packages to load\n\nimport numpy as np # linear algebra\nimport pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n\n# Input data files are available in the read-only \"../input/\" directory\n# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n\nimport os\nfor dirname, _, filenames in os.walk('/kaggle/input'):\n    for filename in filenames:\n        print(os.path.join(dirname, filename))\n\n# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session","metadata":{"_uuid":"8f2839f25d086af736a60e9eeb907d3b93b6e0e5","_cell_guid":"b1076dfc-b9ad-4769-8c92-a6c4dae69d19","trusted":true},"outputs":[],"execution_count":null},{"cell_type":"code","source":"import numpy as np ","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T14:43:28.564684Z","iopub.execute_input":"2025-10-22T14:43:28.565421Z","iopub.status.idle":"2025-10-22T14:43:28.569954Z","shell.execute_reply.started":"2025-10-22T14:43:28.565383Z","shell.execute_reply":"2025-10-22T14:43:28.568732Z"}},"outputs":[],"execution_count":3},{"cell_type":"code","source":"#                                         Numpy \n\n\n# creating a numpy 1d array \n\narr1 = np.array([1,2,3,4,5]) ; \nprint(type(arr1)) ; \n\n\n\narr1\n\narr1.shape\n\n\n\n","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T14:43:49.129944Z","iopub.execute_input":"2025-10-22T14:43:49.130288Z","iopub.status.idle":"2025-10-22T14:43:49.138290Z","shell.execute_reply.started":"2025-10-22T14:43:49.130265Z","shell.execute_reply":"2025-10-22T14:43:49.137511Z"}},"outputs":[{"name":"stdout","text":"<class 'numpy.ndarray'>\n","output_type":"stream"},{"execution_count":5,"output_type":"execute_result","data":{"text/plain":"(5,)"},"metadata":{}}],"execution_count":5},{"cell_type":"code","source":"#        creating a 2d or more dimensional numpy array \n\narr = np.array([1,2,3,4,5]) ; \n# reshaping is reshape my arr into 1 row and 5 column \narr.reshape(1,5) ;     \narr\n\n\n","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T14:43:56.018967Z","iopub.execute_input":"2025-10-22T14:43:56.019320Z","iopub.status.idle":"2025-10-22T14:43:56.026903Z","shell.execute_reply.started":"2025-10-22T14:43:56.019296Z","shell.execute_reply":"2025-10-22T14:43:56.026003Z"}},"outputs":[{"execution_count":6,"output_type":"execute_result","data":{"text/plain":"array([1, 2, 3, 4, 5])"},"metadata":{}}],"execution_count":6},{"cell_type":"code","source":"#  creating multidimensional array without using reshape \narr2 = np.array([[1,2,3,4], [5,6,7,8]]) ; \nprint(arr2) ; \nprint(arr2.shape) ; ","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T14:44:00.036195Z","iopub.execute_input":"2025-10-22T14:44:00.036577Z","iopub.status.idle":"2025-10-22T14:44:00.043795Z","shell.execute_reply.started":"2025-10-22T14:44:00.036547Z","shell.execute_reply":"2025-10-22T14:44:00.042335Z"}},"outputs":[{"name":"stdout","text":"[[1 2 3 4]\n [5 6 7 8]]\n(2, 4)\n","output_type":"stream"}],"execution_count":7},{"cell_type":"code","source":"\n# made an array and reshaped it into 5 rows and 1 column \narr = np.arange(0,10,2).reshape(5,1) ; \narr","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T14:44:03.210579Z","iopub.execute_input":"2025-10-22T14:44:03.211365Z","iopub.status.idle":"2025-10-22T14:44:03.218806Z","shell.execute_reply.started":"2025-10-22T14:44:03.211328Z","shell.execute_reply":"2025-10-22T14:44:03.217417Z"}},"outputs":[{"execution_count":8,"output_type":"execute_result","data":{"text/plain":"array([[0],\n       [2],\n       [4],\n       [6],\n       [8]])"},"metadata":{}}],"execution_count":8},{"cell_type":"code","source":"ones = np.ones((3,4)) ; \nones ","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T14:44:06.293466Z","iopub.execute_input":"2025-10-22T14:44:06.293854Z","iopub.status.idle":"2025-10-22T14:44:06.301583Z","shell.execute_reply.started":"2025-10-22T14:44:06.293824Z","shell.execute_reply":"2025-10-22T14:44:06.300362Z"}},"outputs":[{"execution_count":9,"output_type":"execute_result","data":{"text/plain":"array([[1., 1., 1., 1.],\n       [1., 1., 1., 1.],\n       [1., 1., 1., 1.]])"},"metadata":{}}],"execution_count":9},{"cell_type":"code","source":"#     identity matrix \n\ni = np.eye(3) ; \ni","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T13:12:48.825829Z","iopub.execute_input":"2025-10-22T13:12:48.826356Z","iopub.status.idle":"2025-10-22T13:12:48.833836Z","shell.execute_reply.started":"2025-10-22T13:12:48.826330Z","shell.execute_reply":"2025-10-22T13:12:48.832604Z"}},"outputs":[{"execution_count":36,"output_type":"execute_result","data":{"text/plain":"array([[1., 0., 0.],\n       [0., 1., 0.],\n       [0., 0., 1.]])"},"metadata":{}}],"execution_count":36},{"cell_type":"code","source":"#  Numpy vectorized operation \nimport numpy as np \narr1 = np.array([[1,2,3,4,5],[1,2,3,4,5]]) ; \narr2  = np.array([[1,2,3,4,5],[1,2,3,4,5]]) ; \n\nprint() ; \nprint(\"Addition\" , arr1+arr2) ; \nprint() ; \nprint(\"substraction\" , arr1-arr2) ; \n# Element wise multiplication\nprint() ; \nprint(\"Element wise multiplication \" , arr1 * arr2) ; \n","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T13:18:59.235535Z","iopub.execute_input":"2025-10-22T13:18:59.235881Z","iopub.status.idle":"2025-10-22T13:18:59.244722Z","shell.execute_reply.started":"2025-10-22T13:18:59.235857Z","shell.execute_reply":"2025-10-22T13:18:59.243229Z"}},"outputs":[{"name":"stdout","text":"\nAddition [[ 2  4  6  8 10]\n [ 2  4  6  8 10]]\n\nsubstraction [[0 0 0 0 0]\n [0 0 0 0 0]]\n\nElement wise multiplication  [[ 1  4  9 16 25]\n [ 1  4  9 16 25]]\n","output_type":"stream"}],"execution_count":46},{"cell_type":"code","source":"# universal function \n\narr = np.array([0,30,60,90]) ; \nprint(np.sqrt(arr)) ; \nprint(np.log(arr)) ; \nprint(np.exp(arr)) ; \nprint(np.sin(arr))","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T13:29:38.342734Z","iopub.execute_input":"2025-10-22T13:29:38.343052Z","iopub.status.idle":"2025-10-22T13:29:38.354781Z","shell.execute_reply.started":"2025-10-22T13:29:38.343030Z","shell.execute_reply":"2025-10-22T13:29:38.353671Z"}},"outputs":[{"name":"stdout","text":"[0.         5.47722558 7.74596669 9.48683298]\n[      -inf 3.40119738 4.09434456 4.49980967]\n[1.00000000e+00 1.06864746e+13 1.14200739e+26 1.22040329e+39]\n[ 0.         -0.98803162 -0.30481062  0.89399666]\n","output_type":"stream"}],"execution_count":50},{"cell_type":"code","source":"\n# Slicing \n\narr = np.array([[1,2,3,4] , [5,6,7,8] , [9,10,11,12]]) ; \n#  this below line tells that go to the second row and go till the end of the row \narr[2:]\n\n# the below code tries to print 7,8 ,11 ,12 that is start from the first row first row and second column \narr[1:,2:]\n\n# start reading from zero and before the second column \narr[0:2,2:]\n\n","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T14:54:44.682813Z","iopub.execute_input":"2025-10-22T14:54:44.683166Z","iopub.status.idle":"2025-10-22T14:54:44.690895Z","shell.execute_reply.started":"2025-10-22T14:54:44.683139Z","shell.execute_reply":"2025-10-22T14:54:44.689844Z"}},"outputs":[{"execution_count":29,"output_type":"execute_result","data":{"text/plain":"array([[100,   2,   3,   4],\n       [  5,   6,   7,   8],\n       [  9,  10,  11,  12]])"},"metadata":{}}],"execution_count":29},{"cell_type":"code","source":"# Modify the array elements \n\narr[0,0] = 100\narr\n\narr[1:] = 200\narr ","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T14:55:33.877057Z","iopub.execute_input":"2025-10-22T14:55:33.877418Z","iopub.status.idle":"2025-10-22T14:55:33.884585Z","shell.execute_reply.started":"2025-10-22T14:55:33.877392Z","shell.execute_reply":"2025-10-22T14:55:33.883557Z"}},"outputs":[{"execution_count":30,"output_type":"execute_result","data":{"text/plain":"array([[100,   2,   3,   4],\n       [200, 200, 200, 200],\n       [200, 200, 200, 200]])"},"metadata":{}}],"execution_count":30},{"cell_type":"code","source":"#  Statistical concepts -- Normalization \n# to have a mean of  0 and standard deviation of 1 \ndata = np.array([1,2,3,4,5])\nmean = np.mean(data) \nstd_dev = np.std(data) \n\n#  the formulae for normalization is (Xi - mean) / standard_deviation \n\nnormalized_data = (data - mean) / std_dev ; \nnormalized_data \n\n","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T15:01:06.272271Z","iopub.execute_input":"2025-10-22T15:01:06.272604Z","iopub.status.idle":"2025-10-22T15:01:06.280715Z","shell.execute_reply.started":"2025-10-22T15:01:06.272581Z","shell.execute_reply":"2025-10-22T15:01:06.279611Z"}},"outputs":[{"execution_count":38,"output_type":"execute_result","data":{"text/plain":"0.0"},"metadata":{}}],"execution_count":38},{"cell_type":"code","source":"median = np.median(data)\nvariance = np.var(data) \n\n\n\n\n ","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T15:04:34.340883Z","iopub.execute_input":"2025-10-22T15:04:34.341250Z","iopub.status.idle":"2025-10-22T15:04:34.348924Z","shell.execute_reply.started":"2025-10-22T15:04:34.341223Z","shell.execute_reply":"2025-10-22T15:04:34.347947Z"}},"outputs":[{"execution_count":42,"output_type":"execute_result","data":{"text/plain":"2.0"},"metadata":{}}],"execution_count":42},{"cell_type":"code","source":"# Logical operations \n\ndata = np.array([1,2,3,4,5,6,7,8,9,10])\ndata[(data > 5) & (data <= 8)]","metadata":{"trusted":true,"execution":{"iopub.status.busy":"2025-10-22T15:08:15.592140Z","iopub.execute_input":"2025-10-22T15:08:15.592499Z","iopub.status.idle":"2025-10-22T15:08:15.599435Z","shell.execute_reply.started":"2025-10-22T15:08:15.592475Z","shell.execute_reply":"2025-10-22T15:08:15.598612Z"}},"outputs":[{"execution_count":54,"output_type":"execute_result","data":{"text/plain":"array([6, 7, 8])"},"metadata":{}}],"execution_count":54},{"cell_type":"code","source":"","metadata":{"trusted":true},"outputs":[],"execution_count":null}]}
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "id": "1dd55768",
+   "metadata": {
+    "_cell_guid": "b1076dfc-b9ad-4769-8c92-a6c4dae69d19",
+    "_uuid": "8f2839f25d086af736a60e9eeb907d3b93b6e0e5",
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:28.708344Z",
+     "iopub.status.busy": "2025-10-22T15:11:28.707968Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.433017Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.432032Z"
+    },
+    "papermill": {
+     "duration": 1.732137,
+     "end_time": "2025-10-22T15:11:30.434664",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:28.702527",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "# This Python 3 environment comes with many helpful analytics libraries installed\n",
+    "# It is defined by the kaggle/python Docker image: https://github.com/kaggle/docker-python\n",
+    "# For example, here's several helpful packages to load\n",
+    "\n",
+    "import numpy as np # linear algebra\n",
+    "import pandas as pd # data processing, CSV file I/O (e.g. pd.read_csv)\n",
+    "\n",
+    "# Input data files are available in the read-only \"../input/\" directory\n",
+    "# For example, running this (by clicking run or pressing Shift+Enter) will list all files under the input directory\n",
+    "\n",
+    "import os\n",
+    "for dirname, _, filenames in os.walk('/kaggle/input'):\n",
+    "    for filename in filenames:\n",
+    "        print(os.path.join(dirname, filename))\n",
+    "\n",
+    "# You can write up to 20GB to the current directory (/kaggle/working/) that gets preserved as output when you create a version using \"Save & Run All\" \n",
+    "# You can also write temporary files to /kaggle/temp/, but they won't be saved outside of the current session"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "id": "5759d9de",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.442423Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.442067Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.445899Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.445200Z"
+    },
+    "papermill": {
+     "duration": 0.008908,
+     "end_time": "2025-10-22T15:11:30.447150",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.438242",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "import numpy as np "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "id": "03c8e581",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.454312Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.454064Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.461012Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.460082Z"
+    },
+    "papermill": {
+     "duration": 0.012038,
+     "end_time": "2025-10-22T15:11:30.462357",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.450319",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "<class 'numpy.ndarray'>\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "(5,)"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#                                         Numpy \n",
+    "\n",
+    "\n",
+    "# creating a numpy 1d array \n",
+    "\n",
+    "arr1 = np.array([1,2,3,4,5]) ; \n",
+    "print(type(arr1)) ; \n",
+    "\n",
+    "\n",
+    "\n",
+    "arr1\n",
+    "\n",
+    "arr1.shape\n",
+    "\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "id": "93ff3c0f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.470370Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.469540Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.476586Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.475930Z"
+    },
+    "papermill": {
+     "duration": 0.012388,
+     "end_time": "2025-10-22T15:11:30.477959",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.465571",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([1, 2, 3, 4, 5])"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#        creating a 2d or more dimensional numpy array \n",
+    "\n",
+    "arr = np.array([1,2,3,4,5]) ; \n",
+    "# reshaping is reshape my arr into 1 row and 5 column \n",
+    "arr.reshape(1,5) ;     \n",
+    "arr\n",
+    "\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "id": "6f9dfb23",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.485707Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.485440Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.490502Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.489723Z"
+    },
+    "papermill": {
+     "duration": 0.010241,
+     "end_time": "2025-10-22T15:11:30.491777",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.481536",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[[1 2 3 4]\n",
+      " [5 6 7 8]]\n",
+      "(2, 4)\n"
+     ]
+    }
+   ],
+   "source": [
+    "#  creating multidimensional array without using reshape \n",
+    "arr2 = np.array([[1,2,3,4], [5,6,7,8]]) ; \n",
+    "print(arr2) ; \n",
+    "print(arr2.shape) ; "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "id": "99cf1e7a",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.499204Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.498953Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.504408Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.503568Z"
+    },
+    "papermill": {
+     "duration": 0.01064,
+     "end_time": "2025-10-22T15:11:30.505681",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.495041",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[0],\n",
+       "       [2],\n",
+       "       [4],\n",
+       "       [6],\n",
+       "       [8]])"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "\n",
+    "# made an array and reshaped it into 5 rows and 1 column \n",
+    "arr = np.arange(0,10,2).reshape(5,1) ; \n",
+    "arr"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "id": "80a73191",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.513605Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.513335Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.519080Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.518326Z"
+    },
+    "papermill": {
+     "duration": 0.011219,
+     "end_time": "2025-10-22T15:11:30.520331",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.509112",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[1., 1., 1., 1.],\n",
+       "       [1., 1., 1., 1.],\n",
+       "       [1., 1., 1., 1.]])"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "ones = np.ones((3,4)) ; \n",
+    "ones "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "id": "ca01a870",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.528320Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.528048Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.533435Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.532779Z"
+    },
+    "papermill": {
+     "duration": 0.010668,
+     "end_time": "2025-10-22T15:11:30.534609",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.523941",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[1., 0., 0.],\n",
+       "       [0., 1., 0.],\n",
+       "       [0., 0., 1.]])"
+      ]
+     },
+     "execution_count": 8,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#     identity matrix \n",
+    "\n",
+    "i = np.eye(3) ; \n",
+    "i"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "id": "5016241b",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.542687Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.542422Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.550553Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.549688Z"
+    },
+    "papermill": {
+     "duration": 0.013555,
+     "end_time": "2025-10-22T15:11:30.551775",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.538220",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "Addition [[ 2  4  6  8 10]\n",
+      " [ 2  4  6  8 10]]\n",
+      "\n",
+      "substraction [[0 0 0 0 0]\n",
+      " [0 0 0 0 0]]\n",
+      "\n",
+      "Element wise multiplication  [[ 1  4  9 16 25]\n",
+      " [ 1  4  9 16 25]]\n"
+     ]
+    }
+   ],
+   "source": [
+    "#  Numpy vectorized operation \n",
+    "import numpy as np \n",
+    "arr1 = np.array([[1,2,3,4,5],[1,2,3,4,5]]) ; \n",
+    "arr2  = np.array([[1,2,3,4,5],[1,2,3,4,5]]) ; \n",
+    "\n",
+    "print() ; \n",
+    "print(\"Addition\" , arr1+arr2) ; \n",
+    "print() ; \n",
+    "print(\"substraction\" , arr1-arr2) ; \n",
+    "# Element wise multiplication\n",
+    "print() ; \n",
+    "print(\"Element wise multiplication \" , arr1 * arr2) ; \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "id": "583f39b9",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.560553Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.560280Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.583401Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.582329Z"
+    },
+    "papermill": {
+     "duration": 0.029107,
+     "end_time": "2025-10-22T15:11:30.584614",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.555507",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "[0.         5.47722558 7.74596669 9.48683298]\n",
+      "[      -inf 3.40119738 4.09434456 4.49980967]\n",
+      "[1.00000000e+00 1.06864746e+13 1.14200739e+26 1.22040329e+39]\n",
+      "[ 0.         -0.98803162 -0.30481062  0.89399666]\n"
+     ]
+    }
+   ],
+   "source": [
+    "# universal function \n",
+    "\n",
+    "arr = np.array([0,30,60,90]) ; \n",
+    "print(np.sqrt(arr)) ; \n",
+    "print(np.log(arr)) ; \n",
+    "print(np.exp(arr)) ; \n",
+    "print(np.sin(arr))"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "id": "c340241c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.593312Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.592659Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.599263Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.598695Z"
+    },
+    "papermill": {
+     "duration": 0.012215,
+     "end_time": "2025-10-22T15:11:30.600539",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.588324",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[3, 4],\n",
+       "       [7, 8]])"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "\n",
+    "# Slicing \n",
+    "\n",
+    "arr = np.array([[1,2,3,4] , [5,6,7,8] , [9,10,11,12]]) ; \n",
+    "#  this below line tells that go to the second row and go till the end of the row \n",
+    "arr[2:]\n",
+    "\n",
+    "# the below code tries to print 7,8 ,11 ,12 that is start from the first row first row and second column \n",
+    "arr[1:,2:]\n",
+    "\n",
+    "# start reading from zero and before the second column \n",
+    "arr[0:2,2:]\n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "id": "068821a4",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.608866Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.608532Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.614527Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.613703Z"
+    },
+    "papermill": {
+     "duration": 0.011689,
+     "end_time": "2025-10-22T15:11:30.615920",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.604231",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([[100,   2,   3,   4],\n",
+       "       [200, 200, 200, 200],\n",
+       "       [200, 200, 200, 200]])"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Modify the array elements \n",
+    "\n",
+    "arr[0,0] = 100\n",
+    "arr\n",
+    "\n",
+    "arr[1:] = 200\n",
+    "arr "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "id": "6e88481c",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.624756Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.624438Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.630899Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.630079Z"
+    },
+    "papermill": {
+     "duration": 0.012374,
+     "end_time": "2025-10-22T15:11:30.632237",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.619863",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([-1.41421356, -0.70710678,  0.        ,  0.70710678,  1.41421356])"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "#  Statistical concepts -- Normalization \n",
+    "# to have a mean of  0 and standard deviation of 1 \n",
+    "data = np.array([1,2,3,4,5])\n",
+    "mean = np.mean(data) \n",
+    "std_dev = np.std(data) \n",
+    "\n",
+    "#  the formulae for normalization is (Xi - mean) / standard_deviation \n",
+    "\n",
+    "normalized_data = (data - mean) / std_dev ; \n",
+    "normalized_data \n",
+    "\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "id": "8505819f",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.641436Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.640771Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.646558Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.645691Z"
+    },
+    "papermill": {
+     "duration": 0.011534,
+     "end_time": "2025-10-22T15:11:30.647836",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.636302",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": [
+    "median = np.median(data)\n",
+    "variance = np.var(data) \n",
+    "\n",
+    "\n",
+    "\n",
+    "\n",
+    " "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "id": "fa49de04",
+   "metadata": {
+    "execution": {
+     "iopub.execute_input": "2025-10-22T15:11:30.656933Z",
+     "iopub.status.busy": "2025-10-22T15:11:30.656623Z",
+     "iopub.status.idle": "2025-10-22T15:11:30.664000Z",
+     "shell.execute_reply": "2025-10-22T15:11:30.663115Z"
+    },
+    "papermill": {
+     "duration": 0.013253,
+     "end_time": "2025-10-22T15:11:30.665482",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.652229",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "array([6, 7, 8])"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "# Logical operations \n",
+    "\n",
+    "data = np.array([1,2,3,4,5,6,7,8,9,10])\n",
+    "data[(data > 5) & (data <= 8)]"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "c568ba80",
+   "metadata": {
+    "papermill": {
+     "duration": 0.00372,
+     "end_time": "2025-10-22T15:11:30.673234",
+     "exception": false,
+     "start_time": "2025-10-22T15:11:30.669514",
+     "status": "completed"
+    },
+    "tags": []
+   },
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kaggle": {
+   "accelerator": "none",
+   "dataSources": [],
+   "dockerImageVersionId": 31153,
+   "isGpuEnabled": false,
+   "isInternetEnabled": false,
+   "language": "python",
+   "sourceType": "notebook"
+  },
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.11.13"
+  },
+  "papermill": {
+   "default_parameters": {},
+   "duration": 6.655187,
+   "end_time": "2025-10-22T15:11:31.095137",
+   "environment_variables": {},
+   "exception": null,
+   "input_path": "__notebook__.ipynb",
+   "output_path": "__notebook__.ipynb",
+   "parameters": {},
+   "start_time": "2025-10-22T15:11:24.439950",
+   "version": "2.6.0"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
